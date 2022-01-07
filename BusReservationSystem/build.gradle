@@ -16,6 +16,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// https://mvnrepository.com/artifact/org.projectlombok/lombok
+compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
+	// https://mvnrepository.com/artifact/org.postgresql/postgresql
+implementation group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
+	
 }
 
 test {
