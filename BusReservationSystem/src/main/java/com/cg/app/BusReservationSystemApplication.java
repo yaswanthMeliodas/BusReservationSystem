@@ -1,4 +1,4 @@
-package com.cg.app1;
+package com.cg.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
