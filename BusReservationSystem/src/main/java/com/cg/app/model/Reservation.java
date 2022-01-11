@@ -3,10 +3,14 @@ package com.cg.app.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,10 +33,13 @@ public class Reservation {
 			private LocalTime  reservationTime;
 			private String source;
 			private String destination;
+			
+			@ManyToOne(cascade=CascadeType.ALL)
+			private IUser user;
+			
+			@OneToOne(cascade=CascadeType.ALL)
 			private Bus bus;
-			public String getUserName() {
-				// TODO Auto-generated method stub
-				return null;
+			
 			}
 
-}
+

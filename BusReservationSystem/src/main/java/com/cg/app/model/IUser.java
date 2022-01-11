@@ -1,20 +1,20 @@
 package com.cg.app.model;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 
 @Entity
@@ -22,20 +22,20 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 
-	public class User {
+	public class IUser {
 		
 		@Id
 		@GeneratedValue(strategy=GenerationType.AUTO)
-		private Integer UserId;
-		private String  UserName;
-		private String  Password;
-		private String  FirstName;
-		private String  LastName;
+		private Integer userId;
+		private String  userName;
+		private String  password;
+		private String  firstName;
+		private String  lastName;
 		private String contact;
 		private String email;
 		
-		@OneToOne(cascade=CascadeType.ALL)
-		private Reservation reservation;
+		@OneToMany(cascade=CascadeType.ALL,mappedBy ="user")
+		private List<Reservation> reservations=new ArrayList<>();
 		
 		
 		

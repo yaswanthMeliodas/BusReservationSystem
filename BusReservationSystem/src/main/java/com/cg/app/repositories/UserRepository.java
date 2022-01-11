@@ -4,11 +4,11 @@ package com.cg.app.repositories;
 import org.springframework.data.jpa.repository.support.JpaRepositoryImplementation;
 import org.springframework.stereotype.Repository;
 
-import com.cg.app.model.User;
+import com.cg.app.model.IUser;
 
 @Repository
-public interface UserRepository extends JpaRepositoryImplementation<User, Integer> {
+public interface UserRepository extends JpaRepositoryImplementation<IUser, Integer> {
 	
-	public User findByUserId(Integer userId);
+	public IUser findByUserId(Integer userId);
 
 }

@@ -1,12 +1,15 @@
 package com.cg.app.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.app.exceptions.BusNotFoundException;
 import com.cg.app.exceptions.UserNotFoundException;
-import com.cg.app.model.User;
+import com.cg.app.model.IUser;
+import com.cg.app.model.Route;
 import com.cg.app.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,9 +21,9 @@ public class UserServiceImplementation implements UserService {
 	private UserRepository userRepository;
 
 	@Override
-	public User addUser(User user) {
+	public IUser addUser(IUser user) {
 	log.info("inside the addUser service method");
-	User savedUser =userRepository.save(user);
+	IUser savedUser =userRepository.save(user);
 	
 	log.debug("user added  "+savedUser.getUserId());
 	return savedUser;
@@ -28,21 +31,34 @@ public class UserServiceImplementation implements UserService {
 
 	
 	@Override
-	public User updateUser(User user) {
+	public IUser updateUser(IUser user) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public User deleteUser(Integer userId) throws UserNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+	public IUser deleteUser(Integer userId) throws UserNotFoundException {
+Optional<IUser> deleteUser= userRepository.findById(userId);
+		
+		if(deleteUser.isPresent()) {
+			
+			IUser user=deleteUser.get();
+			 userRepository.delete(user);
+		
+		return user;
+		}
+		else
+		{
+		throw new UserNotFoundException("Bus is not found with given route id");
+		}
 	}
+	
+	
 
 	@Override
 	public String viewUser(Integer userId) {
 		log.info("inside the UserId service method");
-		User userDetailsById=userRepository.findByUserId(userId);
+		IUser userDetailsById=userRepository.findByUserId(userId);
 		
 		if(userDetailsById==null)
 		{
@@ -51,13 +67,13 @@ public class UserServiceImplementation implements UserService {
 		}
 		else
 		{
-		return userDetailsById.getReservation().getUserName();
+		return userDetailsById.getUserName();
 	}
 	}
 	@Override
-	public List<User> viewAllUser() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public List<IUser> viewAllUser() 
+	{	
+	return userRepository.findAll();
+		}
 
 }
